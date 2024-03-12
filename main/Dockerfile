@@ -1,4 +1,4 @@
-FROM python:3.12.0rc3
+FROM python:latest
 ENV PYTHONUNBUFFERED 1
 WORKDIR /app
 COPY requirements.txt /app/requirements.txt
