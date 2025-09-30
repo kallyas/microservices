@@ -2,7 +2,7 @@ from dataclasses import dataclass
 from flask import Flask, jsonify, abort
 from flask_cors import CORS
 from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy import UniqueConstraint
+from sqlalchemy.orm import DeclarativeBase
 import requests
 
 from producer import publish
@@ -11,7 +11,10 @@ app = Flask(__name__)
 app.config["SQLALCHEMY_DATABASE_URI"] = 'mysql://root:root@db/main'
 CORS(app)
 
-db = SQLAlchemy(app)
+class Base(DeclarativeBase):
+    pass
+
+db = SQLAlchemy(app, model_class=Base)
 
 
 @dataclass
@@ -31,7 +34,7 @@ class ProductUser(db.Model):
     user_id = db.Column(db.Integer)
     product_id = db.Column(db.Integer)
 
-    UniqueConstraint('user_id', 'product_id', name='user_product_unique')
+    __table_args__ = (db.UniqueConstraint('user_id', 'product_id', name='user_product_unique'),)
 
 
 @app.route('/api/products')
