@@ -1,4 +1,4 @@
-import React, { PropsWithChildren } from 'react';
+import { PropsWithChildren } from 'react';
 import Nav from './components/Nav';
 import Menu from './components/Menu';
 
