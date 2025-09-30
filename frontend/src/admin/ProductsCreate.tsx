@@ -1,11 +1,11 @@
 import React, { SyntheticEvent, useState } from 'react';
 import Wrapper from './Wrapper';
-import { Redirect } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const ProductsCreate = () => {
   const [title, setTitle] = useState('');
   const [image, setImage] = useState('');
-  const [redirect, setRedirect] = useState(false);
+  const navigate = useNavigate();
 
   const submit = async (e: SyntheticEvent) => {
     e.preventDefault();
@@ -19,12 +19,8 @@ const ProductsCreate = () => {
       }),
     });
 
-    setRedirect(true);
+    navigate('/admin/products');
   };
-
-  if (redirect) {
-    return <Redirect to={'/admin/products'} />;
-  }
 
   return (
     <Wrapper>
